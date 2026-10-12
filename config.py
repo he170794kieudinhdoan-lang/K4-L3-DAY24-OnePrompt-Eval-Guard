@@ -45,8 +45,25 @@ GUARDRAILS_CONFIG_DIR = os.path.join(ROOT_DIR, "guardrails")
 PAIR_QUESTION_IDS = (1, 5, 12, 21, 41)
 
 # --- LLM Judge ---
-GENERATION_MODEL = "gpt-4o-mini"
+# Mặc định giữ model của starter; key bị giới hạn model thì override trong .env.
+GENERATION_MODEL = os.getenv("GENERATION_MODEL", "gpt-4o-mini")
 JUDGE_MODEL = "gpt-4o-mini"
+
+# --- Day 18 modules: m4 RAGAS evaluator + m5 enrichment (separate from generation/judge) ---
+LLM_API_KEY = OPENAI_API_KEY
+# Endpoint tương thích OpenAI (vd. Gemini); SDK openai cũng tự đọc OPENAI_BASE_URL cho generation.
+LLM_BASE_URL = os.getenv("OPENAI_BASE_URL") or None
+LLM_MODEL = os.getenv("EVALUATOR_MODEL", "gpt-4o-mini")  # RAGAS evaluator LLM + m5 enrichment LLM
+# RAGAS answer_relevancy embeddings: "openai" (API) hoặc "local" (sentence-transformers, HF model id)
+EVALUATOR_EMBEDDING_PROVIDER = os.getenv("EVALUATOR_EMBEDDING_PROVIDER", "openai")
+LLM_EMBEDDING_MODEL = os.getenv("EVALUATOR_EMBEDDING_MODEL", "text-embedding-3-small")
+LLM_MAX_RETRIES = 8
+
+
+def make_llm_client():
+    """OpenAI client shared by m5 enrichment calls."""
+    from openai import OpenAI
+    return OpenAI(api_key=LLM_API_KEY, base_url=LLM_BASE_URL, max_retries=LLM_MAX_RETRIES)
 
 # --- Guardrail latency budget ---
 LATENCY_BUDGET_P95_MS = 500  # Full guard target; Task 12 currently measures input guards only.
