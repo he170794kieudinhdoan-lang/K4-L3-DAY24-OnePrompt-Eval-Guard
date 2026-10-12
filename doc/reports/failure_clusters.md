@@ -1,8 +1,8 @@
 # Phân tích lỗi Phase A
 
-Nhóm: {{Tên nhóm}}
+Nhóm: OnePrompt
 
-Người phụ trách: {{Họ tên và MSSV}}
+Người phụ trách: Nguyễn Việt Hùng - 2A202602972
 
 Nguồn: `artifacts/ragas_50q.json`; run timestamp: {{created_at}}.
 Generation mode/fallback và điều kiện chạy: {{Điều kiện thực tế}}.

@@ -1,6 +1,6 @@
 # Blueprint CI/CD cho RAG và guardrails
 
-Nhóm: Track 3B - Team P-006
+Nhóm: OnePrompt
 
 Người phụ trách: Kiều Đình Đoàn - HE170794
 

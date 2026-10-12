@@ -1,8 +1,8 @@
 # Đánh giá LLM Judge Phase B
 
-Nhóm: {{Tên nhóm}}
+Nhóm: OnePrompt
 
-Người phụ trách: {{Họ tên và MSSV}}
+Người phụ trách: Đỗ Việt Hoàng - 2A202602882
 
 Nguồn: `artifacts/judge_results.json`; run timestamp: {{created_at}}.
 Models generation/judge: {{metadata.models.generation và metadata.models.judge}}.

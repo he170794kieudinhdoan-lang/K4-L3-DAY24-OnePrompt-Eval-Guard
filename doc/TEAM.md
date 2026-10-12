@@ -1,6 +1,6 @@
 # Nhóm thực hiện K4 Track 3B
 
-Tên nhóm: Nhóm 4 - Track 3B (Team P-006)
+Tên nhóm: OnePrompt
 
 Repo chung: https://github.com/he170794kieudinhdoan-lang/K4-L3-DAY24-OnePrompt-Eval-Guard.git
 
