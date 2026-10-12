@@ -2,7 +2,7 @@
 
 Nhóm: OnePrompt
 
-Người phụ trách: Kiều Đình Đoàn - HE170794
+Người phụ trách: Kiều Đình Đoàn - 2A202602936
 
 Đây là **đề xuất CI/CD**, không phải workflow đã được triển khai/chạy.
 Nguồn kết quả: artifacts/ragas_50q.json, judge_results.json, guard_results.json.
