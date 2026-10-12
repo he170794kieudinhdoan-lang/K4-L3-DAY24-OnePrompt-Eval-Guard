@@ -17,7 +17,7 @@ Thêm/xóa rows để khớp nhóm thật; mẫu ba rows không ép nhóm phải
 
 | STT | Họ và tên | MSSV | Vai trò / công việc thật | Bằng chứng |
 |---|---|---|---|---|
-| 1 | Nguyễn Việt Hưng | 2A202602972 | Phase A: Task 1–4 (`src/phase_a_ragas.py`); tích hợp m1–m5 + adapter m4; sinh 50 answers; chạy RAGAS live; viết `doc/reports/failure_clusters.md` | Commit `0cef74de1daa7bbfe8cfa1ac9f1d3946921f4e05` trên nhánh `phase-a-nguyenviethung`; `artifacts/answers_50q.json`, `artifacts/ragas_50q.json` |
+| 1 | Nguyễn Việt Hùng | 2A202602972 | Phase A: Task 1–4 (`src/phase_a_ragas.py`); tích hợp m1–m5 + adapter m4; sinh 50 answers; chạy RAGAS live; viết `doc/reports/failure_clusters.md` | Commit `0cef74de1daa7bbfe8cfa1ac9f1d3946921f4e05` trên nhánh `phase-a-nguyenviethung`; `artifacts/answers_50q.json`, `artifacts/ragas_50q.json` |
 | 2 | {{Họ tên}} | {{MSSV}} | {{Phase/file/hàm}} | {{Commit/PR/report}} |
 | 3 | {{Họ tên}} | {{MSSV}} | {{Phase/file/hàm}} | {{Commit/PR/report}} |
 
@@ -25,7 +25,7 @@ Người tích hợp/chạy batch/nộp link: {{Họ tên, công việc và bằ
 
 ## Môi trường và chuẩn bị trước lớp
 
-OS/Python/compiler (máy Nguyễn Việt Hưng): Windows 11 Home 10.0.26200, Python 3.11.9, MSVC 14.44 (VS Build Tools 2022) + Windows SDK 10.0.26100 cài ở ổ D: (ổ C không đủ chỗ); build `annoy==1.17.3` thành công.
+OS/Python/compiler (máy Nguyễn Việt Hùng): Windows 11 Home 10.0.26200, Python 3.11.9, MSVC 14.44 (VS Build Tools 2022) + Windows SDK 10.0.26100 cài ở ổ D: (ổ C không đủ chỗ); build `annoy==1.17.3` thành công.
 Virtualenv/dependencies/imports: `py -3.11 -m venv .venv`; `pip install -r requirements/requirements.txt -c requirements/constraints-core.txt`; `pip check` → "No broken requirements found"; import ragas 0.1.22, nemoguardrails 0.10.0, presidio_analyzer, spacy, torch 2.14.1+cpu OK. pip kéo `pyarrow 26` cần NumPy 2 (xung đột với `numpy==1.26.4` nhưng pip check không phát hiện) → hạ `pyarrow==21.0.0`.
 Models/Qdrant/50 answers đã chuẩn bị: Qdrant `qdrant/qdrant:v1.9.7` qua Docker; BAAI/bge-m3 và BAAI/bge-reranker-v2-m3 tải về cache HF; `scripts/setup_answers.py --live` sinh 50 answers (20/20/10), cả 50 ở mode `llm` với `gemini-3.5-flash-lite`, không có extractive fallback. Key OpenAI chỉ có gpt-5.x rồi hết credit nên dùng Gemini qua endpoint tương thích OpenAI (`OPENAI_BASE_URL`, model khai trong `.env`). 6/130 chunks dùng enrichment theo luật do lỗi API; 2 PDF scan không có text layer nên không index. NeMo/Presidio mới kiểm tra import, chưa chạy guard runtime (phần Phase C).
 Nếu cài full NeMo chưa thành công, ghi lỗi thực tế; không dùng unit test pass

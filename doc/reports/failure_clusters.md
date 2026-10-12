@@ -2,7 +2,7 @@
 
 Nhóm: OnePrompt
 
-Người phụ trách: Nguyễn Việt Hưng — 2A202602972
+Người phụ trách: Nguyễn Việt Hùng — 2A202602972
 
 Nguồn: `artifacts/ragas_50q.json`; run timestamp: 2026-10-12T18:17:53Z (01:17 ngày 13/10/2026, UTC+07:00).
 Generation mode/fallback và điều kiện chạy: cả 50 answers ở mode `llm` (không có extractive fallback),
