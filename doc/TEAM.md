@@ -17,7 +17,7 @@ Thêm/xóa rows để khớp nhóm thật; mẫu ba rows không ép nhóm phải
 
 | STT | Họ và tên | MSSV | Vai trò / công việc thật | Bằng chứng |
 |---|---|---|---|---|
-| 1 | {{Họ tên}} | {{MSSV}} | {{Phase/file/hàm}} | {{Commit/PR/report}} |
+| 1 | Trần Quốc Khánh | 2A202602824 | Phase C: Presidio PII, NeMo input/output rails, adversarial suite và đo P95 input guard | `src/phase_c_guard.py`, `guardrails/config.yml`, `tests/test_phase_c.py`, `artifacts/guard_results.json` |
 | 2 | {{Họ tên}} | {{MSSV}} | {{Phase/file/hàm}} | {{Commit/PR/report}} |
 | 3 | {{Họ tên}} | {{MSSV}} | {{Phase/file/hàm}} | {{Commit/PR/report}} |
 
@@ -35,14 +35,14 @@ hoặc pip resolve để khẳng định runtime đã chạy.
 
 Sao chép mẫu cho mỗi thành viên; tiêu đề họ tên không dấu-MSSV.
 
-### {{HoVaTen}}-{{MSSV}}
+### TranQuocKhanh-2A202602824
 
-- Phần được giao và phần thực tế đã làm: {{Nhiệm vụ, file/hàm, mục đích}}.
-- Bằng chứng: {{Commit/PR và artifacts/reports liên quan}}.
-- Cách kiểm tra: {{Unit mock hoặc live experiment, lệnh và kết quả}}.
-- Điều đã học: {{Khái niệm và cách thể hiện trong bài}}.
-- Giới hạn/cách xử lý: {{Vấn đề và kiểm chứng}}.
-- Nguồn/AI hỗ trợ nếu có: {{Công cụ, phạm vi, cách tự kiểm chứng}}.
+- **Phần được giao và đã thực hiện:** Phụ trách Phase C (Tasks 9a–12). Trong `src/phase_c_guard.py`, hoàn thiện quét và ẩn danh CCCD/CMND, số điện thoại Việt Nam và email bằng Presidio; gọi NeMo input/output rails theo quyết định `activated_rails`; chạy bộ adversarial cùng clean controls; đo tuần tự Presidio và NeMo input với hai lượt warm-up, 20 mẫu timed và percentile nội suy tuyến tính. Điều chỉnh policy trong `guardrails/config.yml` để cho phép câu hỏi về quy định mật khẩu nhưng chặn yêu cầu lấy mật khẩu và nội dung ngoài phạm vi. Bổ sung test chống chặn nhầm từ các entity NER không thuộc chính sách PII.
+- **Bằng chứng:** `src/phase_c_guard.py`, `guardrails/config.yml`, `tests/test_phase_c.py` và kết quả chạy thật `artifacts/guard_results.json` (metadata ghi guard model `gpt-4o-mini`). Chưa có commit/PR riêng tại thời điểm viết mục này; nhóm cần ghi commit dùng để nộp ở đầu tài liệu.
+- **Cách kiểm tra:** Chạy `.venv/Scripts/python.exe -m pytest tests/test_phase_c.py -q`: 13/13 test pass. Chạy `.venv/Scripts/python.exe scripts/run_experiments.py --phase c --live --latency-samples 20`, sau đó `.venv/Scripts/python.exe scripts/check_lab.py`: `PASS Phase C artifact`. Report cuối ghi 20/20 attacks bị chặn, 8/8 clean inputs được cho qua (false-positive rate 0), và 4/4 output cases đúng; hai output sạch được giữ nguyên, hai output nhạy cảm được thay thế.
+- **Điều đã học:** Chỉ đếm attacks sẽ che giấu lỗi chặn mọi câu hỏi; 8 clean controls cho thấy false positives. Model NER tiếng Anh của Presidio từng gán các cụm tiếng Việt về chính sách thành `PERSON`, nên tầng chặn PII chỉ dùng các loại identifier mà đề bài yêu cầu. Latency phải đo từ raw samples, loại warm-up và tính P95 trên tổng thời gian của từng mẫu thay vì cộng P95 của từng tầng.
+- **Giới hạn và cách xử lý:** Input guard P95 là 843,513 ms (Presidio 16,799 ms; NeMo input 832,459 ms), vượt mục tiêu 500 ms. Đây là phép đo `input_layers_sequential`, chưa đo RAG, output rail hoặc full request có short-circuit; không dùng nó để kết luận độ trễ toàn hệ thống. Bộ 20 attacks, 8 clean inputs và 4 output cases chỉ là mẫu kiểm thử của lab; nhóm cần đưa số đo và kế hoạch cải thiện NeMo vào blueprint chung.
+- **Nguồn/AI hỗ trợ:** Dùng Codex hỗ trợ rà soát mã, phân tích report, sửa lọc entity Presidio và diễn đạt policy NeMo. Kết quả được đối chiếu bằng test offline, bộ dữ liệu mẫu, batch chạy thật và checker của repo; không dùng AI để tạo số liệu giả.
 
 ## Cập nhật sau khi nộp
 

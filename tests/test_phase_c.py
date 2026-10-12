@@ -50,6 +50,20 @@ def test_pii_clean(pii_engines):
     pii_engines[0].analyze.assert_called_once()
 
 
+def test_pii_ignores_unrelated_ner_entities(pii_engines):
+    text = "Nhân viên chính thức có bao nhiêu ngày phép năm?"
+    pii_engines[0].analyze.return_value = [
+        SimpleNamespace(entity_type="PERSON", start=0, end=9, score=.85),
+        SimpleNamespace(entity_type="US_DRIVER_LICENSE", start=10, end=15, score=.3),
+    ]
+    pii_engines[0].analyze.side_effect = None
+
+    assert phase.pii_scan(text, *pii_engines) == {
+        "has_pii": False, "entities": [], "anonymized": text,
+    }
+    pii_engines[1].anonymize.assert_not_called()
+
+
 @pytest.mark.parametrize("blocked",[True,False])
 def test_input_uses_rail_decision(blocked):
     result=SimpleNamespace(response=[{"role":"assistant","content":"policy response"}],
